@@ -153,7 +153,7 @@ checksum = "6fd41f331ac7c5b8ac259b8bf82c75c0fb2e469bbf37d2becbba9a6a2221965b"
 
 [[package]]
 name = "mdlint"
-version = "0.1.1"
+version = "2.0.1"
 dependencies = [
  "comrak",
  "console",
@@ -163,7 +163,7 @@ dependencies = [
 
 [[package]]
 name = "mdlint-cli"
-version = "0.1.1"
+version = "2.0.1"
 dependencies = [
  "mdlint",
 ]
