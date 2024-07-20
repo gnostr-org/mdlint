@@ -1,6 +1,6 @@
 use crate::ruleset::RuleResultDetails;
 
-crate trait VecExt {
+pub trait VecExt {
     fn to_option(self) -> Option<Vec<RuleResultDetails>>;
 }
 

@@ -2,7 +2,7 @@ use comrak::nodes::{AstNode, NodeValue};
 use crate::rules::extensions::VecExt;
 use crate::ruleset::{RuleResult, RuleResultDetails};
 
-crate fn check<'a>(root: &'a AstNode<'a>) -> RuleResult {
+pub fn check<'a>(root: &'a AstNode<'a>) -> RuleResult {
     let mut details: Vec<RuleResultDetails> = Vec::new();
     if let Some(first_line) = root.children().nth(0) {
         let node = first_line.data.borrow();

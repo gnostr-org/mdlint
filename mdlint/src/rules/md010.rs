@@ -3,7 +3,7 @@ use crate::rules::common_checks::check_content;
 use crate::rules::extensions::VecExt;
 use crate::ruleset::RuleResult;
 
-crate fn check<'a>(root: &'a AstNode<'a>) -> RuleResult {
+pub fn check<'a>(root: &'a AstNode<'a>) -> RuleResult {
     let details = check_content(root, r"\t", None);
 
     RuleResult::new("MD010", "no-hard-tabs", "Hard tabs", details.to_option())

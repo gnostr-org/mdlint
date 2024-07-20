@@ -4,7 +4,7 @@ use crate::rules::extensions::VecExt;
 use crate::ruleset::{RuleResult, RuleResultDetails};
 use std::cell::Ref;
 
-crate fn check<'a>(root: &'a AstNode<'a>) -> RuleResult {
+pub fn check<'a>(root: &'a AstNode<'a>) -> RuleResult {
     let mut details: Vec<RuleResultDetails> = Vec::new();
     let mut li_type: u8 = 42; // dash
     let uls = filter_nodes(root, is_ul);

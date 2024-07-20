@@ -3,7 +3,7 @@ use crate::parser::{filter_nodes, is_heading};
 use crate::rules::extensions::VecExt;
 use crate::ruleset::{RuleResult, RuleResultDetails};
 
-crate fn check<'a>(root: &'a AstNode<'a>) -> RuleResult {
+pub fn check<'a>(root: &'a AstNode<'a>) -> RuleResult {
     let mut prev_level = 0;
     let mut details: Vec<RuleResultDetails> = Vec::new();
 

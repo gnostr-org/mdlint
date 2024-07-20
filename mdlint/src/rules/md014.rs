@@ -5,7 +5,7 @@ use crate::rules::extensions::VecExt;
 use crate::ruleset::{RuleResult, RuleResultDetails};
 use regex::Regex;
 
-crate fn check<'a>(root: &'a AstNode<'a>) -> RuleResult {
+pub fn check<'a>(root: &'a AstNode<'a>) -> RuleResult {
     let rx = Regex::new(r"^$|\$\s.*$").unwrap();
     let details: Vec<RuleResultDetails> = check_content(root, r"^\$\s", Some(is_codeblock))
         .into_iter()

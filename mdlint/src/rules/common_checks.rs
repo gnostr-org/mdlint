@@ -3,7 +3,7 @@ use crate::parser::{extract_content, filter_nodes, flatten_nodes_with_content};
 use crate::ruleset::RuleResultDetails;
 use regex::Regex;
 
-crate fn check_content<'a>(
+pub fn check_content<'a>(
     root: &'a AstNode<'a>,
     regex: &str,
     filter_fn: Option<fn(&NodeValue) -> bool>,
