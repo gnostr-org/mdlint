@@ -7,23 +7,23 @@ use std::fs::File;
 use std::io::{Error, Read};
 use std::path::Path;
 
-crate fn get_ast<'a>(path: &str, arena: &'a Arena<AstNode<'a>>) -> &'a AstNode<'a> {
+pub fn get_ast<'a>(path: &str, arena: &'a Arena<AstNode<'a>>) -> &'a AstNode<'a> {
     let text = read_file(path).unwrap_or_else(|_| panic!("Failed to find file: {}", path));
     parse_document(arena, &text, &ComrakOptions::default())
 }
 
-crate fn read_file(file_path: &str) -> Result<String, Error> {
+pub fn read_file(file_path: &str) -> Result<String, Error> {
     let mut tokens = String::new();
     let mut f = File::open(Path::new(file_path))?;
     f.read_to_string(&mut tokens)?;
     Ok(tokens)
 }
 
-crate fn extract_content(node: &AstNode<'_>) -> String {
+pub fn extract_content(node: &AstNode<'_>) -> String {
     extract_content_from_node(&node.data.borrow())
 }
 
-crate fn extract_content_from_node(node: &Ref<'_, Ast>) -> String {
+pub fn extract_content_from_node(node: &Ref<'_, Ast>) -> String {
     if let NodeValue::CodeBlock(x) = node.value.clone() {
         let st = content_to_string(x.literal.to_vec());
         if node.start_column < 4 {
@@ -36,12 +36,12 @@ crate fn extract_content_from_node(node: &Ref<'_, Ast>) -> String {
     }
 }
 
-crate fn content_to_string(content: Vec<u8>) -> String {
+pub fn content_to_string(content: Vec<u8>) -> String {
     String::from_utf8(content).expect("Something went wrong while transforming content to string")
 }
 
 #[allow(dead_code)]
-crate fn iter_nodes<'a, F>(node: &'a AstNode<'a>, f: &F)
+pub fn iter_nodes<'a, F>(node: &'a AstNode<'a>, f: &F)
 where
     F: Fn(&'a AstNode<'a>),
 {
@@ -51,11 +51,11 @@ where
     }
 }
 
-crate fn flatten_nodes<'a>(node: &'a AstNode<'a>) -> Vec<&'a AstNode<'a>> {
+pub fn flatten_nodes<'a>(node: &'a AstNode<'a>) -> Vec<&'a AstNode<'a>> {
     traverse_nodes(node, None)
 }
 
-crate fn flatten_nodes_with_content<'a>(node: &'a AstNode<'a>) -> Vec<&'a AstNode<'a>> {
+pub fn flatten_nodes_with_content<'a>(node: &'a AstNode<'a>) -> Vec<&'a AstNode<'a>> {
     flatten_nodes(node)
         .into_iter()
         .filter(|child| {
@@ -72,7 +72,7 @@ crate fn flatten_nodes_with_content<'a>(node: &'a AstNode<'a>) -> Vec<&'a AstNod
         .collect()
 }
 
-crate fn filter_nodes<'a>(
+pub fn filter_nodes<'a>(
     node: &'a AstNode<'a>,
     filter_fn: fn(&NodeValue) -> bool,
 ) -> Vec<&'a AstNode<'a>> {
@@ -103,28 +103,28 @@ fn traverse_nodes<'a>(
     final_vec
 }
 
-crate fn is_heading(node: &NodeValue) -> bool {
+pub fn is_heading(node: &NodeValue) -> bool {
     match node {
         NodeValue::Heading(_) => true,
         _ => false,
     }
 }
 
-crate fn is_heading_1(node: &NodeValue) -> bool {
+pub fn is_heading_1(node: &NodeValue) -> bool {
     match node {
         NodeValue::Heading(x) if x.level == 1 => true,
         _ => false,
     }
 }
 
-crate fn is_ul(node: &NodeValue) -> bool {
+pub fn is_ul(node: &NodeValue) -> bool {
     match node {
         NodeValue::List(x) if x.list_type == ListType::Bullet => true,
         _ => false,
     }
 }
 
-crate fn is_codeblock(node: &NodeValue) -> bool {
+pub fn is_codeblock(node: &NodeValue) -> bool {
     match node {
         NodeValue::CodeBlock(_) => true,
         _ => false,
@@ -132,7 +132,7 @@ crate fn is_codeblock(node: &NodeValue) -> bool {
 }
 
 #[allow(dead_code)]
-crate fn is_ol(node: &NodeValue) -> bool {
+pub fn is_ol(node: &NodeValue) -> bool {
     match node {
         NodeValue::List(x) if x.list_type == ListType::Ordered => true,
         _ => false,
@@ -140,7 +140,7 @@ crate fn is_ol(node: &NodeValue) -> bool {
 }
 
 #[allow(dead_code)]
-crate fn is_paragraph(node: &NodeValue) -> bool {
+pub fn is_paragraph(node: &NodeValue) -> bool {
     match node {
         NodeValue::Paragraph => true,
         _ => false,

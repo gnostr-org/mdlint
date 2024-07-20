@@ -5,18 +5,18 @@ use crate::parser;
 use std::{cell::Ref, fmt};
 use typed_arena::Arena;
 
-crate type CheckFn = Box<dyn for<'a> Fn(&'a AstNode<'a>) -> RuleResult>;
+pub type CheckFn = Box<dyn for<'a> Fn(&'a AstNode<'a>) -> RuleResult>;
 
-crate struct RuleSet {
-    crate rules: Vec<CheckFn>,
+pub struct RuleSet {
+    pub rules: Vec<CheckFn>,
 }
 
 impl RuleSet {
-    crate fn new(rules: Vec<CheckFn>) -> Self {
+    pub fn new(rules: Vec<CheckFn>) -> Self {
         Self { rules }
     }
 
-    crate fn run(&self, file_path: &str) -> Vec<RuleResult> {
+    pub fn run(&self, file_path: &str) -> Vec<RuleResult> {
         let arena = Arena::new();
         let root = parser::get_ast(file_path, &arena);
         self.rules
@@ -36,7 +36,7 @@ pub struct RuleResult {
 }
 
 impl RuleResult {
-    crate fn new(
+    pub fn new(
         name: &str,
         alias: &str,
         description: &str,
@@ -50,7 +50,7 @@ impl RuleResult {
         }
     }
 
-    crate fn to_string(&self) -> String {
+    pub fn to_string(&self) -> String {
         let title = format!("{}/{}", self.name, self.alias);
         let mut final_str = format!(
             "{}{}\r\n{}\r\n",
@@ -83,7 +83,7 @@ pub struct RuleResultDetails {
 }
 
 impl RuleResultDetails {
-    crate fn new(line: u32, column: usize, content: String) -> Self {
+    pub fn new(line: u32, column: usize, content: String) -> Self {
         Self {
             line,
             column,
@@ -93,7 +93,7 @@ impl RuleResultDetails {
         }
     }
 
-    crate fn from_node(node: &Ref<'_, Ast>) -> Self {
+    pub fn from_node(node: &Ref<'_, Ast>) -> Self {
         Self::new(
             node.start_line,
             node.start_column,
@@ -101,7 +101,7 @@ impl RuleResultDetails {
         )
     }
 
-    crate fn to_string(&self) -> String {
+    pub fn to_string(&self) -> String {
         format!("ln. {}, col. {}: {}", self.line, self.column, self.content)
     }
 }
