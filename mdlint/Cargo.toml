@@ -1,8 +1,8 @@
 [package]
 edition = '2018'
 name = "mdlint"
-version = "0.1.0"
-authors = ["Roberto Huertas <roberto.huertas@outlook.com>"]
+version = "0.1.1"
+authors = ["gnostr admin@gnostr.org", "Roberto Huertas <roberto.huertas@outlook.com>"]
 
 [dependencies]
 console = "0.6.2"
