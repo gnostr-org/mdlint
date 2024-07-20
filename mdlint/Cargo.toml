@@ -2,6 +2,7 @@
 edition = '2018'
 name = "mdlint"
 version = "0.1.1"
+repository = "https://github.com/gnostr-org/mdlint.git"
 authors = ["gnostr admin@gnostr.org", "Roberto Huertas <roberto.huertas@outlook.com>"]
 
 [dependencies]
