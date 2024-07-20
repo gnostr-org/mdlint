@@ -3,7 +3,7 @@ use crate::parser::flatten_nodes_with_content;
 use crate::rules::extensions::VecExt;
 use crate::ruleset::{RuleResult, RuleResultDetails};
 
-crate fn check<'a>(root: &'a AstNode<'a>) -> RuleResult {
+pub fn check<'a>(root: &'a AstNode<'a>) -> RuleResult {
     // multimple blanklines in code blocks should be valid
     let mut details: Vec<RuleResultDetails> = Vec::new();
     let nodes = flatten_nodes_with_content(root);

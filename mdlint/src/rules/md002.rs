@@ -4,7 +4,7 @@ use crate::rules::extensions::VecExt;
 use crate::ruleset::{RuleResult, RuleResultDetails};
 use std::cell::Ref;
 
-crate fn check<'a>(root: &'a AstNode<'a>) -> RuleResult {
+pub fn check<'a>(root: &'a AstNode<'a>) -> RuleResult {
     let mut details: Vec<RuleResultDetails> = Vec::new();
     if let Some(heading) = filter_nodes(root, is_heading).first() {
         let node: Ref<'_, Ast> = heading.data.borrow();
